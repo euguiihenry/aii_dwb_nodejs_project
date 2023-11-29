@@ -41,23 +41,24 @@ connection.end() */
 =================================================================================*/
   const dotenv = require('dotenv');
   const express = require('express');
+  const cors = require('cors');
   const mysql = require('mysql2')
 
 /* Config for dotenv:
 =================================================================================*/
   dotenv.config({ path: '../.env' });
 
-/* Config for CORS:
-=================================================================================*/
-  app.use(cors({
-      allowedHeaders: ['Content-Type','Access-Control-Allow-Origin']
-  }));
-
 /* Main Function:
 =================================================================================*/
   /* Global Variables:
   ===============================================================================*/
     const app = express();
+
+  /* Config for CORS:
+  ===============================================================================*/
+    app.use(cors({
+      allowedHeaders: ['Content-Type','Access-Control-Allow-Origin']
+    }));
 
   /* GET Method:
   ===============================================================================*/
