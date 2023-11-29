@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+/* Personalizando areas ------------------------------------------------------------------------- */
+
+.title-form{
+    display: block;
+    font-size: 30px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.container-form { /* form dos menus principal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(224, 224, 224);
+    text-align: center;
+    height: 500px;
+    width: 500px;
+    border-radius: 10px;
+}
+
+.container-form-bd { /* form dos menus gerais */
+    background-color: rgb(224, 224, 224);
+    height: 700px;
+    width: 80%;
+    padding: 50px;
+    border-radius: 10px;
+    margin: 70px 50px 70px 50px;
+}
+
+.container-form-btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.container-form-btn {
+    display: flex;
+    width: 150px;
+    height: 50px;
+    margin: 10px 0px 10px 0px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: small;
+}
+
+
+/* Personalizando Inputs ------------------------------------------------------------------------- */
+
+.form-input {
+
+    background-color: rgb(247, 243, 243);
+    height: 40px;
+
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0.5px solid rgb(148, 148, 148);
+}
+/* Personalizando tabela ------------------------------------------------------------------------- */
+
+.lista-container {
+    max-height: 250px; /* Altura máxima da lista antes de exibir uma barra de rolagem */
+    overflow: auto; /* Adiciona uma barra de rolagem quando necessário */
+    margin: 30px 0 30px 0;
+
+}
+
+.lista-table {
+    width: 100%; /* A tabela ocupará 100% da largura disponível */
+    border-collapse: collapse; /* Para juntar as bordas das células da tabela */
+    margin-top: 10px; /* Ajuste conforme necessário */
+    background-color: rgb(247, 243, 243);
+}
+
+.lista-table th, .lista-table td {
+    border: 1px solid #3f3e3e; /* Adiciona uma borda de 1px sólida às células da tabela */
+    padding: 8px; /* Adiciona um espaço interno de 8px nas células */
+    text-align: left; /* Alinha o texto à esquerda nas células */
+}
+
+.lista-table th {
+    background-color: rgb(161, 211, 228); /* Cor de fundo para as células de cabeçalho da tabela */
+}
+
+.info-elemento {
+    font-weight: bold; /* Deixa o texto em negrito */
+    margin-right: 10px; /* Ajuste conforme necessário */
+}
+/* Personalizando Botoes ------------------------------------------------------------------------- */
+
+.form-btn {
+    display: flex;
+    margin: 10px 0px 10px 0px;
+    width: 150px;
+    height: 40px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: small;
+    
+}
+
+.form-btn-bd {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    margin: 10px 0 10px 0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: small;
+}
+
+.form-btn-bd-edt{
+    background-color: rgb(52, 172, 219)
+}
+
+.form-btn-bd-dlt{
+    background-color: #e74c3c
+}
+
+.form-btn-bd-add{
+    background-color: #2ecc71
+}
+
+.form-btn:hover,.form-btn-bd:hover, .container-form-btn:hover {
+    background-color: #00356e;
+    transition: 0.5s;
+
+}
+
+

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emprestimo</title>
+    <link rel="stylesheet" href="../aii_dwb_nodejs_project/assets/styles.css">
+
+</head>
+
+<body>
+
+
+    <div class="container-form-bd">
+        <span class="title-form">EMPRESTIMOS</span>
+        <div class="content-list lista-container">
+            <table class="lista-table">
+                <thead>
+                    <tr>
+                        <th>ID ALUNO</th>
+                        <th>ID LIVRO</th>
+                        <th>DATA DO EMPRESTIMO</th>
+                        <th>DATA DE DEVOLUÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody id="list-itens">
+                    <!-- A tabela será preenchida dinamicamente pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container-inputs-bd">
+            <input class="form-input" type="text" id="IDAluno" placeholder="ID ALuno" style="width: 100px;">
+            <input class="form-input" type="text" id="IDLivro" placeholder="ID Livro" style="width: 100px;">
+            <input class="form-input" type="date" id="dataEmprestimo" placeholder="Data de Emprestimo"
+                style="width: 300px;">
+            <input class="form-input" type="date" id="dataDevolucao" placeholder="Data de Emprestimo"
+                style="width: 300px;">
+        </div>
+
+        <div class="container-btn-bd">
+            <button id="btnEditar" onclick="editar()" class="form-btn-bd form-btn-bd-edt">Editar</button>
+            <button id="btnExcluir" onclick="excluir()" class="form-btn-bd form-btn-bd-dlt">Excluir</button>
+            <button id="btnAdicionar" onclick="adicionar()" class="form-btn-bd form-btn-bd-add">Adicionar</button>
+
+        </div>
+
+        <br>
+
+        <a href="home.html" class="container-form-btn">VOLTAR</a>
+
+    </div>
+
+
+
+    <script>
+        var emprestimos = [
+            { IDAluno: 1, IDLivro: 101, dataEmprestimo: "2023-01-01", dataDevolucao: "2023-01-15" },
+            { IDAluno: 2, IDLivro: 102, dataEmprestimo: "2023-02-05", dataDevolucao: "2023-02-20" },
+            { IDAluno: 3, IDLivro: 103, dataEmprestimo: "2023-03-10", dataDevolucao: "2023-03-25" },
+            { IDAluno: 4, IDLivro: 104, dataEmprestimo: "2023-04-15", dataDevolucao: "2023-04-30" },
+            { IDAluno: 5, IDLivro: 105, dataEmprestimo: "2023-05-20", dataDevolucao: "2023-06-05" }
+        ];
+
+        function exibirEmprestimos() {
+            var listaEmprestimos = document.getElementById("list-itens");
+            listaEmprestimos.innerHTML = "";
+            emprestimos.forEach(function (emprestimo) {
+                var tr = document.createElement("tr");
+                var tdIDAluno = document.createElement("td");
+                var tdIDLivro = document.createElement("td");
+                var tdDataEmprestimo = document.createElement("td");
+                var tdDataDevolucao = document.createElement("td");
+
+                tdIDAluno.textContent = emprestimo.IDAluno;
+                tdIDLivro.textContent = emprestimo.IDLivro;
+                tdDataEmprestimo.textContent = emprestimo.dataEmprestimo;
+                tdDataDevolucao.textContent = emprestimo.dataDevolucao;
+
+                tr.appendChild(tdIDAluno);
+                tr.appendChild(tdIDLivro);
+                tr.appendChild(tdDataEmprestimo);
+                tr.appendChild(tdDataDevolucao);
+
+                listaEmprestimos.appendChild(tr);
+            });
+        }
+
+        function editar() {
+            var idAluno = document.getElementById("IDAluno").value;
+            var idLivro = document.getElementById("IDLivro").value;
+            var dataEmprestimo = document.getElementById("dataEmprestimo").value;
+            var dataDevolucao = document.getElementById("dataDevolucao").value;
+
+            // Verifica se o ID do aluno fornecido é válido
+            if (idAluno.trim() !== "" && idLivro.trim() !== "") {
+                // Procura o empréstimo pelo ID do aluno
+                var emprestimoExistente = emprestimos.find(function (emprestimo) {
+                    return emprestimo.IDAluno == idAluno;
+                });
+
+                // Se o empréstimo existir, atualiza suas informações
+                if (emprestimoExistente) {
+                    emprestimoExistente.IDLivro = idLivro;
+                    emprestimoExistente.dataEmprestimo = dataEmprestimo;
+                    emprestimoExistente.dataDevolucao = dataDevolucao;
+                    exibirEmprestimos();
+                } else {
+                    alert("Empréstimo não encontrado. Não é possível editar.");
+                }
+            } else {
+                alert("Digite um ID de aluno válido para editar.");
+            }
+        }
+
+        function excluir() {
+            var idAluno = document.getElementById("IDAluno").value;
+
+            // Verifica se o ID do aluno fornecido é válido
+            if (idAluno.trim() !== "") {
+                // Filtra os empréstimos, removendo o empréstimo com o ID do aluno correspondente
+                emprestimos = emprestimos.filter(function (emprestimo) {
+                    return emprestimo.IDAluno != idAluno;
+                });
+                exibirEmprestimos();
+            } else {
+                alert("Digite um ID de aluno válido para excluir.");
+            }
+        }
+
+        function adicionar() {
+            var idAluno = document.getElementById("IDAluno").value;
+            var idLivro = document.getElementById("IDLivro").value;
+            var dataEmprestimo = document.getElementById("dataEmprestimo").value;
+            var dataDevolucao = document.getElementById("dataDevolucao").value;
+
+            // Verifica se os campos não estão vazios e se não existe um empréstimo com esse ID de aluno
+            if (idAluno.trim() !== "" && idLivro.trim() !== "" && dataEmprestimo.trim() !== "" && dataDevolucao.trim() !== "" &&
+                !emprestimos.some(emprestimo => emprestimo.IDAluno == idAluno && emprestimo.IDLivro == idLivro) &&
+                validarDatas(dataEmprestimo, dataDevolucao)) {
+                // Adiciona um novo empréstimo à lista
+                emprestimos.push({ IDAluno: idAluno, IDLivro: idLivro, dataEmprestimo: dataEmprestimo, dataDevolucao: dataDevolucao });
+                exibirEmprestimos();
+            } else {
+                alert("Preencha todos os campos, digite IDs únicos e verifique as datas de empréstimo e devolução.");
+            }
+            exibirEmprestimos();
+        }
+
+        function validarDatas(dataEmprestimo, dataDevolucao) {
+            // Converte as datas para objetos Date para facilitar a comparação
+            var dataEmprestimoObj = new Date(dataEmprestimo);
+            var dataDevolucaoObj = new Date(dataDevolucao);
+
+            // Verifica se a data de empréstimo é anterior à data de devolução
+            if (dataEmprestimoObj < dataDevolucaoObj) {
+                return true;
+            } else {
+                alert("A data de empréstimo deve ser inferior à data de devolução.");
+                return false;
+            }
+        }
+
+        window.onload = exibirEmprestimos;
+    </script>
+
+</body>
+
+</html>

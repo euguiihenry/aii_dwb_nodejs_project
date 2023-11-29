@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>usuario</title>
+    <link rel="stylesheet" href="../aii_dwb_nodejs_project/assets/styles.css">
+
+</head>
+
+<body>
+
+
+    <div class="container-form-bd">
+        <span class="title-form">ALUNOS</span>
+        <div class="content-list lista-container">
+            <table class="lista-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>MATRÍCULA</th>
+                    </tr>
+                </thead>
+                <tbody id="list-itens">
+                    <!-- A tabela será preenchida dinamicamente pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container-inputs-bd">
+
+            <input class="form-input" type="text" id="ID" placeholder="ID" style="width: 100px;">
+            <input class="form-input" type="text" id="name" placeholder="Nome do Aluno" style="width: 300px;">
+            <input class="form-input" type="text" id="matricula" placeholder="Matricula" style="width: 300px;">
+
+        </div>
+
+        <div class="container-btn-bd">
+            <button id="btnEditar" onclick="editar()" class="form-btn-bd form-btn-bd-edt">Editar</button>
+            <button id="btnExcluir" onclick="excluir()" class="form-btn-bd form-btn-bd-dlt">Excluir</button>
+            <button id="btnAdicionar" onclick="adicionar()" class="form-btn-bd form-btn-bd-add">Adicionar</button>
+
+        </div>
+
+        <br>
+
+        <a href="home.html" class="container-form-btn">VOLTAR</a>
+
+    </div>
+
+
+
+    <script>
+        var alunos = [
+            { id: 1, nome: "Alice", matricula: "A123" },
+            { id: 2, nome: "Bob", matricula: "B456" },
+            { id: 3, nome: "Charlie", matricula: "C789" },
+            { id: 4, nome: "David", matricula: "D012" },
+            { id: 5, nome: "Eva", matricula: "E345" }
+        ];
+
+        function exibirAlunos() {
+            var listaAlunos = document.getElementById("list-itens");
+            listaAlunos.innerHTML = "";
+            alunos.forEach(function (aluno) {
+                var tr = document.createElement("tr");
+                var tdID = document.createElement("td");
+                var tdNome = document.createElement("td");
+                var tdMatricula = document.createElement("td");
+
+                tdID.textContent = aluno.id;
+                tdNome.textContent = aluno.nome;
+                tdMatricula.textContent = aluno.matricula;
+
+                tr.appendChild(tdID);
+                tr.appendChild(tdNome);
+                tr.appendChild(tdMatricula);
+
+                listaAlunos.appendChild(tr);
+            });
+        }
+
+        function editar() {
+            var id = document.getElementById("ID").value;
+            var nome = document.getElementById("name").value;
+            var matricula = document.getElementById("matricula").value;
+
+            // Verifica se o ID fornecido é válido
+            if (id.trim() !== "") {
+                // Procura o usuário pelo ID
+                var alunoExistente = alunos.find(function (aluno) {
+                    return aluno.id == id;
+                });
+
+                // Se o usuário existir, atualiza suas informações
+                if (alunoExistente) {
+                    alunoExistente.nome = nome;
+                    alunoExistente.matricula = matricula;
+                    exibirAlunos();
+                } else {
+                    alert("ID não encontrado. Não é possível editar.");
+                }
+            } else {
+                alert("Digite um ID válido para editar.");
+            }
+            exibirAlunos();
+        }
+
+        function excluir() {
+            var id = document.getElementById("ID").value;
+
+            // Verifica se o ID fornecido é válido
+            if (id.trim() !== "") {
+                // Filtra os usuários, removendo o usuário com o ID correspondente
+                alunos = alunos.filter(function (aluno) {
+                    return aluno.id != id;
+                });
+                exibirAlunos();
+            } else {
+                alert("Digite um ID válido para excluir.");
+            }
+            exibirAlunos();
+        }
+
+        function adicionar() {
+            var id = document.getElementById("ID").value;
+            var nome = document.getElementById("name").value;
+            var matricula = document.getElementById("matricula").value;
+
+            // Verifica se os campos não estão vazios e se já existe um usuário com esse ID
+            if (id.trim() !== "" && nome.trim() !== "" && matricula.trim() !== "" && !alunos.some(aluno => aluno.id == id)) {
+                // Adiciona um novo usuário à lista
+                alunos.push({ id: id, nome: nome, matricula: matricula });
+                exibirAlunos();
+            } else {
+                alert("Preencha todos os campos e digite um ID único para adicionar.");
+            }
+            exibirAlunos();
+        }
+
+        window.onload = exibirAlunos;
+    </script>
+
+</body>
+
+</html>

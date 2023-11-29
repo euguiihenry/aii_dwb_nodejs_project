@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livro</title>
+    <link rel="stylesheet" href="../aii_dwb_nodejs_project/assets/styles.css">
+
+</head>
+
+<body>
+
+
+    <div class="container-form-bd">
+        <span class="title-form">LIVROS</span>
+        <div class="content-list lista-container">
+            <table class="lista-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TÍTULO</th>
+                        <th>AUTOR</th>
+                    </tr>
+                </thead>
+                <tbody id="list-itens">
+                    <!-- A tabela será preenchida dinamicamente pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container-inputs-bd">
+
+            <input class="form-input" type="text" id="ID" placeholder="ID" style="width: 100px;">
+            <input class="form-input" type="text" id="titulo" placeholder="Titulo do Livro" style="width: 300px;">
+            <input class="form-input" type="text" id="autor" placeholder="Autor" style="width: 300px;">
+
+        </div>
+
+        <div class="container-btn-bd">
+            <button id="btnEditar" onclick="editar()" class="form-btn-bd form-btn-bd-edt">Editar</button>
+            <button id="btnExcluir" onclick="excluir()" class="form-btn-bd form-btn-bd-dlt">Excluir</button>
+            <button id="btnAdicionar" onclick="adicionar()" class="form-btn-bd form-btn-bd-add">Adicionar</button>
+
+        </div>
+
+        <br>
+
+        <a href="home.html" class="container-form-btn">VOLTAR</a>
+
+    </div>
+
+
+
+    <script>
+        var livros = [
+            { id: 1, titulo: "Dom Quixote", autor: "Miguel de Cervantes" },
+            { id: 2, titulo: "Romeu e Julieta", autor: "William Shakespeare" },
+            { id: 3, titulo: "Cem Anos de Solidão", autor: "Gabriel García Márquez" },
+            { id: 4, titulo: "1984", autor: "George Orwell" },
+            { id: 5, titulo: "O Pequeno Príncipe", autor: "Antoine de Saint-Exupéry" }
+        ];
+
+        function exibirLivros() {
+            var listaLivros = document.getElementById("list-itens");
+            listaLivros.innerHTML = "";
+            livros.forEach(function (livro) {
+                var tr = document.createElement("tr");
+                var tdID = document.createElement("td");
+                var tdTitulo = document.createElement("td");
+                var tdAutor = document.createElement("td");
+
+                tdID.textContent = livro.id;
+                tdTitulo.textContent = livro.titulo;
+                tdAutor.textContent = livro.autor;
+
+                tr.appendChild(tdID);
+                tr.appendChild(tdTitulo);
+                tr.appendChild(tdAutor);
+
+                listaLivros.appendChild(tr);
+            });
+        }
+
+        function editar() {
+            var id = document.getElementById("ID").value;
+            var titulo = document.getElementById("titulo").value;
+            var autor = document.getElementById("autor").value;
+
+            // Verifica se o ID fornecido é válido
+            if (id.trim() !== "") {
+                // Procura o usuário pelo ID
+                var livroExistente = livros.find(function (livro) {
+                    return livro.id == id;
+                });
+
+                // Se o usuário existir, atualiza suas informações
+                if (livroExistente) {
+                    livroExistente.titulo = titulo;
+                    livroExistente.autor = autor;
+                    exibirLivros();
+                } else {
+                    alert("ID não encontrado. Não é possível editar.");
+                }
+            } else {
+                alert("Digite um ID válido para editar.");
+            }
+            exibirLivros();
+        }
+
+        function excluir() {
+            var id = document.getElementById("ID").value;
+
+            // Verifica se o ID fornecido é válido
+            if (id.trim() !== "") {
+                // Filtra os usuários, removendo o usuário com o ID correspondente
+                livros = livros.filter(function (livro) {
+                    return livro.id != id;
+                });
+                exibirLivros();
+            } else {
+                alert("Digite um ID válido para excluir.");
+            }
+            exibirLivros();
+        }
+
+        function adicionar(){
+            var id = document.getElementById("ID").value;
+            var titulo = document.getElementById("titulo").value;
+            var autor = document.getElementById("autor").value;
+
+            // Verifica se os campos não estão vazios e se não existe um livro com esse ID
+            if (id.trim() !== "" && titulo.trim() !== "" && autor.trim() !== "" && !livros.some(livro => livro.id == id)) {
+                // Adiciona um novo livro à lista
+                livros.push({ id: id, titulo: titulo, autor: autor });
+                exibirLivros();
+            } else {
+                alert("Preencha todos os campos e digite um ID único para adicionar o livro.");
+            }
+            exibirLivros();
+        }
+
+        window.onload = exibirLivros;
+    </script>
+
+</body>
+
+</html>
