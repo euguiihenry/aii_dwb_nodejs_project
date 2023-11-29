@@ -2,13 +2,15 @@
     "routes": [
         {
             "src": "/",
-            "dest": "/api/index.js"
+            "dest": "/home.html"
         },
         {
             "src": "/index",
             "methods": [
                 "GET",
-                "POST"
+                "POST",
+                "DELETE",
+                "PATCH"
             ],
             "dest": "/api/index.js"
         }
