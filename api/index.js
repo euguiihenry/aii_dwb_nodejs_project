@@ -46,7 +46,8 @@ connection.end() */
 
 /* Config for dotenv:
 =================================================================================*/
-  dotenv.config({ path: '../.env' });
+  const envFilePath = '../.env';
+  dotenv.config({ path: envFilePath });
 
 /* Main Function:
 =================================================================================*/
@@ -60,11 +61,56 @@ connection.end() */
       allowedHeaders: ['Content-Type','Access-Control-Allow-Origin']
     }));
 
+    /* Connection to PlanetScale Function:
+    ===============================================================================*/
+      function connectFunc() {
+        /* Create the connection to the database
+          =========================================================================*/
+            const connection = mysql.createConnection(process.env.DATABASE_URL);
+
+          /* Return the connection
+          =========================================================================*/
+            return connection
+    }
+
   /* GET Method:
   ===============================================================================*/
     app.get('/api/index', async (req, res, next) => {
       try {
-        res.send('Hello GET World');
+        /* Getting the connection from connectFunc:
+        =========================================================================*/
+          const connection = connectFunc();
+
+        /* Connecting and executing the query:
+        =========================================================================*/
+          connection.connect(function(err) {
+            /* Checking for errors before continuing:
+            =====================================================================*/
+              if (err) {
+                  console.error('Error connecting: ' + err.stack);
+                  return;
+              }
+        
+            /* Execute the query
+            =====================================================================*/
+              connection.query('SELECT * FROM livros;', function(err, results, fields) {
+                /* Checking for errors before continuing:
+                =================================================================*/
+                  if (err) {
+                      console.error('Error executing query: ' + err.message);
+                      return;
+                  }
+
+                /* Sending a response back after the query is executed
+                =================================================================*/
+                  res.send(JSON.stringify(results));
+                  
+                /* Close the connection when done
+                =================================================================*/
+                  connection.end();
+              });
+        });
+
       } catch (error) {
         next(error);
       }
@@ -104,16 +150,12 @@ connection.end() */
   ===============================================================================*/
     app.use((error, req, res, next) => {
       console.error(error.stack);
-      res.status(500).send('Error retrieving data! Something went wrong!');
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: 'Error retrieving data. Something went wrong.',
+        details: error.message  // Include the specific error message for debugging
+      });
     });
-
-  /* Connection to PlanetScale Function:
-  ===============================================================================*/
-    function connectFunc() {
-      /* Create the connection to the database
-      ===========================================================================*/
-        const connection = mysql.createConnection(process.env.DATABASE_LINK);
-    }
   
   /* Exports:
   ===============================================================================*/
