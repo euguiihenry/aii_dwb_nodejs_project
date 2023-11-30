@@ -132,7 +132,7 @@ app.get('/api/students/get/student/:id', async (req, res, next) => {
 app.post('/api/students/add/student', async (req, res) => {
     /* Getting the body data from the request:
     ===========================================================================*/
-    const { id, nome, curso } = req.body;
+    const { id, nome, matricula } = req.body;
 
     /* Performing the POST request into the database:
     ===========================================================================*/
@@ -154,7 +154,7 @@ app.post('/api/students/add/student', async (req, res) => {
 
         /* Execute the query
         ========================================================================*/
-        connection.query('INSERT INTO alunos (id, nome, curso) VALUES (?, ?, ?)', [id, nome, curso], function (err, results, fields) {
+        connection.query('INSERT INTO alunos (id, nome, matricula) VALUES (?, ?, ?)', [id, nome, matricula], function (err, results, fields) {
             /* Checking for errors before continuing:
             ====================================================================*/
             if (err) {
@@ -227,10 +227,10 @@ app.patch('/api/students/update/student/:id', async (req, res, next) => {
 
 /* DELETE Method:
 ==============================================================================*/
-app.delete('/api/students/delete/student/:id', async (req, res, next) => {
+app.delete('/api/students/delete/student', async (req, res, next) => {
     /* Getting the ID from the request:
     ===========================================================================*/
-    const { id } = req.params;
+    const { id } = req.body.id;
 
     /* Performing the DELETE request into the database:
     ===========================================================================*/

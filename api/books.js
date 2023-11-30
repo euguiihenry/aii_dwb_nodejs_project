@@ -226,10 +226,10 @@
 
   /* DELETE Method:
   ===============================================================================*/
-    app.delete('/api/library/delete/book/:id', async (req, res, next) => {
+    app.delete('/api/library/delete/book/', async (req, res, next) => {
       /* Getting the ID from the request:
       ===========================================================================*/
-        const { id } = req.params;
+        const { id } = req.body.id;
       
       /* Performing the DELETE request into the database:
       ===========================================================================*/

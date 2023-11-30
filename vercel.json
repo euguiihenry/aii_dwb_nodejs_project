@@ -93,6 +93,6 @@
                 "DELETE"
             ],
             "dest": "/api/registers.js"
-        }     
+        }
     ]
 }

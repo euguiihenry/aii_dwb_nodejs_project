@@ -1,3 +1,108 @@
+/* Getting Data from DB and Showing it in Table:
+================================================================================================*/
+    document.addEventListener('DOMContentLoaded', function() {  
+        showAllLoans();
+    });
+
+    async function getAllLoans() {
+        const path = 'https://your-api-url/api/registers/get/loans';
+        const response = await axios.get(path);
+        const data = response.data;
+        return data;
+    }
+
+    async function showAllLoans() {
+        const allLoans = await getAllLoans();
+        console.log(allLoans);
+        const tableElement = document.getElementById('list-itens');
+        
+        if (tableElement) {
+            tableElement.innerHTML = '';
+            for (let i = 0; i < allLoans.length; i++) {
+                tableElement.innerHTML += `
+                <tr>
+                    <td>${allLoans[i].id_emprestimo}</td>
+                    <td>${allLoans[i].id_aluno}</td>
+                    <td>${allLoans[i].id_livro}</td>
+                    <td>${allLoans[i].data_emprestimo}</td>
+                    <td>${allLoans[i].data_devolucao}</td>
+                </tr>
+                `;
+            }
+        } else {
+            console.error('Table element not found.');
+        }
+    }
+
+/* Updating Data in DB Using Patch Method:
+================================================================================================*/
+    async function updateLoan() {
+        let idAluno = document.getElementById("IDAluno").value;
+        let idLivro = document.getElementById("IDLivro").value;
+        let dataEmprestimo = document.getElementById("dataEmprestimo").value;
+        let dataDevolucao = document.getElementById("dataDevolucao").value;
+
+        const path = 'https://your-api-url/api/registers/update/loan/' + idAluno;
+
+        try {
+            await axios.patch(path, {
+                id_aluno: idAluno,
+                id_livro: idLivro,
+                data_emprestimo: dataEmprestimo,
+                data_devolucao: dataDevolucao
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
+        showAllLoans();
+    }
+
+/* Adding loan into DB:
+================================================================================================*/
+    async function addLoan() {
+        let idAluno = document.getElementById("IDAluno").value;
+        let idLivro = document.getElementById("IDLivro").value;
+        let dataEmprestimo = document.getElementById("dataEmprestimo").value;
+        let dataDevolucao = document.getElementById("dataDevolucao").value;
+
+        const path = 'https://your-api-url/api/registers/add/loan';
+
+        try {
+            await axios.post(path, {
+                id_aluno: idAluno,
+                id_livro: idLivro,
+                data_emprestimo: dataEmprestimo,
+                data_devolucao: dataDevolucao
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
+        showAllLoans();
+    }
+
+/* Deleting loan from DB:
+================================================================================================*/
+    async function deleteLoan() {
+        let idAluno = document.getElementById("IDAluno").value;
+
+        const path = 'https://your-api-url/api/registers/delete/loan/' + idAluno;
+
+        try {
+            await axios.delete(path);
+        } catch (error) {
+            console.error(error);
+        }
+
+        showAllLoans();
+    }
+
+
+
+/* Old Code:
+=============================================================================*/
+
 var emprestimos = [
     { IDAluno: 1, IDLivro: 101, dataEmprestimo: "2023-01-01", dataDevolucao: "2023-01-15" },
     { IDAluno: 2, IDLivro: 102, dataEmprestimo: "2023-02-05", dataDevolucao: "2023-02-20" },
