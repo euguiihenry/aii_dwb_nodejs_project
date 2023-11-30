@@ -18,9 +18,16 @@ const app = express();
 
 /* Config for CORS:
 ==============================================================================*/
-app.use(cors({
-    allowedHeaders: ['Content-Type', 'Access-Control-Allow-Origin']
-}));
+    app.use(cors({
+        allowedHeaders: ['Content-Type', 'Access-Control-Allow-Origin']
+    }));
+
+    app.use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        next();
+    });
 
 /* Connection to PlanetScale Function:
 ==============================================================================*/
