@@ -1,31 +1,81 @@
-/* Imports:
+/* Global Variables:
 ================================================================================================*/
-    import 'regenerator-runtime/runtime';    
-    import axios from 'axios';
-    import dotenv from 'dotenv';
+    let allBooksVar = [];
 
-/* Configuring dotenv:
+/* Getting Data from DB and Showing it in Table:
 ================================================================================================*/
-    //dotenv.config({ path: '../../.env' });
+    document.addEventListener('DOMContentLoaded', function() {  
+        async function getAllBooks() {
+            const path = 'http://localhost:3000/api/library/get/books';
+            const response = await axios.get(path);
+            const data = response.data;
+            return data;
+        }
 
-/* Getting Data from DB:
+        async function showAllBooks() {
+            allBooksVar = await getAllBooks();
+            console.log(allBooksVar);
+            const tableElement = document.getElementById('list-itens');
+            
+            // Check if the table element exists
+            if (tableElement) {
+                tableElement.innerHTML = '';
+                for (let i = 0; i < allBooksVar.length; i++) {
+                    tableElement.innerHTML += `
+                    <tr>
+                        <td>${allBooksVar[i].id}</td>
+                        <td>${allBooksVar[i].titulo}</td>
+                        <td>${allBooksVar[i].autor}</td>
+                    </tr>
+                    `;
+                }
+            } else {
+                console.error('Table element not found.');
+            }
+        }
+
+        // Call your function
+        showAllBooks();
+    });
+
+/* Updating Data in DB Using Patch Method:
 ================================================================================================*/
-    async function getBooks() {
-        const path = process.env.LOCAL || 'http://localhost:3000/api/index';
-        const response = await axios.get(path);
+    async function updateBook(id, title, author) {
+        const path = 'http://localhost:3000/api/index';
+        const response = await axios.patch(path, {
+            id: id,
+            title: title,
+            author: author
+        });
         console.log(response.data);
         return response.data;
     }
 
+/* Posting Data to DB:
+================================================================================================*/
+    async function postBook(id, title, author) {
+        const path = 'http://localhost:3000/api/index';
+        const response = await axios.post(path, {
+            id: id,
+            title: title,
+            author: author
+        });
+        console.log(response.data);
+        return response.data;
+    }
+
+
+
+
 /* Old Script:
 ================================================================================================*/
-    var livros = [
+    /* var livros = [
         { id: 1, titulo: "Dom Quixote", autor: "Miguel de Cervantes" },
         { id: 2, titulo: "Romeu e Julieta", autor: "William Shakespeare" },
         { id: 3, titulo: "Cem Anos de Solidão", autor: "Gabriel García Márquez" },
         { id: 4, titulo: "1984", autor: "George Orwell" },
         { id: 5, titulo: "O Pequeno Príncipe", autor: "Antoine de Saint-Exupéry" }
-    ];
+    ]; */
 
     function exibirLivros() {
         var listaLivros = document.getElementById("list-itens");
@@ -106,20 +156,8 @@
         exibirLivros();
     }
 
-    async function editarServer() {
-        let paragraph = document.querySelector('.response');
-        let data1 = {};
 
-        await fetch('http://localhost:3000/api/index')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                data1 = JSON.parse(data);
-            });
-
-        paragraph.innerText = data1;
-    }
-
-
-    window.onload = exibirLivros;
+   /*  window.onload = () => {
+        showAllBooks();
+    }; */
 

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livro</title>
     <link rel="stylesheet" href="../styles.css">
-    <script type="module" src="../scripts/livro.js"></script>
+    <script src="../scripts/livro.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
-
-
     <div class="container-form-bd">
         <span class="title-form">LIVROS</span>
         <div class="content-list lista-container">
@@ -28,32 +27,20 @@
                 </tbody>
             </table>
         </div>
-
         <div class="container-inputs-bd">
-
             <input class="form-input" type="text" id="ID" placeholder="ID" style="width: 100px;">
             <input class="form-input" type="text" id="titulo" placeholder="Titulo do Livro" style="width: 300px;">
             <input class="form-input" type="text" id="autor" placeholder="Autor" style="width: 300px;">
-
         </div>
-
         <div class="container-btn-bd">
-            <!-- <button id="btnEditar" onclick="editar()" class="form-btn-bd form-btn-bd-edt">Editar</button> -->
-            <button id="btnEditar" onclick="getBooks()" class="form-btn-bd form-btn-bd-edt">Editar</button>
+            <button id="btnEditar" onclick="edit()" class="form-btn-bd form-btn-bd-edt">Editar</button>
             <button id="btnExcluir" onclick="excluir()" class="form-btn-bd form-btn-bd-dlt">Excluir</button>
             <button id="btnAdicionar" onclick="adicionar()" class="form-btn-bd form-btn-bd-add">Adicionar</button>
-
         </div>
-
         <br>
-
         <a href="../../home.html" class="container-form-btn">VOLTAR</a>
-
         <br>
-
         <p class="response"></p>
-
     </div>
 </body>
-
 </html>
