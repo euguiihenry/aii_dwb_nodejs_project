@@ -1,3 +1,13 @@
+/* Axios Config Variable:
+================================================================================================*/
+const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json'
+    }
+}
+
 /* Getting Data from DB and Showing it in Table:
 ================================================================================================*/
     document.addEventListener('DOMContentLoaded', function() {  
@@ -46,7 +56,7 @@
                 id: id,
                 nome: nome,
                 matricula: matricula
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
@@ -68,7 +78,7 @@
                 id: id,
                 nome: nome,
                 matricula: matricula
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
@@ -81,10 +91,12 @@
     async function deleteStudent() {
         let id = document.getElementById("ID").value;
 
-        const path = 'https://library-dwb.vercel.app/api/students/delete/student/' + id;
+        const path = 'https://library-dwb.vercel.app/api/students/delete/student/';
 
         try {
-            await axios.delete(path);
+            await axios.delete(path, {
+                id: id
+            }, config);
         } catch (error) {
             console.error(error);
         }

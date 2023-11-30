@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emprestimo</title>
     <link rel="stylesheet" href="../styles.css">
-    <script type="module" src="../scripts/emprestimo.js"></script>
+    <script defer src="../scripts/emprestimo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
@@ -17,6 +17,7 @@
             <table class="lista-table">
                 <thead>
                     <tr>
+                        <th>ID EMPRESTIMO</th>
                         <th>ID ALUNO</th>
                         <th>ID LIVRO</th>
                         <th>DATA DO EMPRESTIMO</th>
@@ -29,6 +30,7 @@
             </table>
         </div>
         <div class="container-inputs-bd">
+            <input class="form-input" type="text" id="IDEmprestimo" placeholder="ID Emprestimo" style="width: 100px;">
             <input class="form-input" type="text" id="IDAluno" placeholder="ID ALuno" style="width: 100px;">
             <input class="form-input" type="text" id="IDLivro" placeholder="ID Livro" style="width: 100px;">
             <input class="form-input" type="date" id="dataEmprestimo" placeholder="Data de Emprestimo"

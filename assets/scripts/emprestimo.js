@@ -1,3 +1,25 @@
+/* Format Dates Functions:
+================================================================================================*/
+    function formatDate(inputDate) {
+        const dateObject = new Date(inputDate);
+        
+        const day = String(dateObject.getUTCDate()).padStart(2, '0');
+        const month = String(dateObject.getUTCMonth() + 1).padStart(2, '0');
+        const year = dateObject.getUTCFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
+
+/* Axios Config Variable:
+================================================================================================*/
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json'
+        }
+    }
+
 /* Getting Data from DB and Showing it in Table:
 ================================================================================================*/
     document.addEventListener('DOMContentLoaded', function() {  
@@ -13,7 +35,12 @@
 
     async function showAllLoans() {
         const allLoans = await getAllLoans();
-        console.log(allLoans);
+        
+        for (let i = 0; i < allLoans.length; i++) {
+            allLoans[i].data_devolucao = formatDate(allLoans[i].data_devolucao);
+            allLoans[i].data_emprestimo = formatDate(allLoans[i].data_emprestimo);
+        }
+
         const tableElement = document.getElementById('list-itens');
         
         if (tableElement) {
@@ -37,20 +64,22 @@
 /* Updating Data in DB Using Patch Method:
 ================================================================================================*/
     async function updateLoan() {
+        let idEmprestimo = document.getElementById("IDEmprestimo").value;
         let idAluno = document.getElementById("IDAluno").value;
         let idLivro = document.getElementById("IDLivro").value;
         let dataEmprestimo = document.getElementById("dataEmprestimo").value;
         let dataDevolucao = document.getElementById("dataDevolucao").value;
 
-        const path = 'https://library-dwb.vercel.app/api/registers/update/register/' + idAluno;
+        const path = 'https://library-dwb.vercel.app/api/registers/update/register/' + idEmprestimo;
 
         try {
             await axios.patch(path, {
+                id_emprestimo: idEmprestimo,
                 id_aluno: idAluno,
                 id_livro: idLivro,
                 data_emprestimo: dataEmprestimo,
                 data_devolucao: dataDevolucao
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
@@ -74,7 +103,7 @@
                 id_livro: idLivro,
                 data_emprestimo: dataEmprestimo,
                 data_devolucao: dataDevolucao
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
@@ -85,12 +114,12 @@
 /* Deleting loan from DB:
 ================================================================================================*/
     async function deleteLoan() {
-        let idAluno = document.getElementById("IDAluno").value;
+        let idEmprestimo = document.getElementById("IDEmprestimo").value;
 
-        const path = 'https://library-dwb.vercel.app/api/registers/delete/register/' + idAluno;
+        const path = 'https://library-dwb.vercel.app/api/registers/delete/register/';
 
         try {
-            await axios.delete(path);
+            await axios.delete(path,{ id: idEmprestimo }, config);
         } catch (error) {
             console.error(error);
         }

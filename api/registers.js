@@ -19,7 +19,9 @@
 /* Config for CORS:
 ==============================================================================*/
     app.use(cors({
-        allowedHeaders: ['Content-Type', 'Access-Control-Allow-Origin']
+        origin: '*',
+        methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
     }));
 
 /* Connection to PlanetScale Function:

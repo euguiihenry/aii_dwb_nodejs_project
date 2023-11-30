@@ -2,6 +2,16 @@
 ================================================================================================*/
     let allBooksVar = [];
 
+/* Axios Config Variable:
+================================================================================================*/
+const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json'
+    }
+}
+
 /* Getting Data from DB and Showing it in Table:
 ================================================================================================*/
     document.addEventListener('DOMContentLoaded', function() {  
@@ -51,7 +61,7 @@
                 id: id,
                 titulo: titulo,
                 autor: autor
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
@@ -73,7 +83,7 @@
                 id: id,
                 titulo: titulo,
                 autor: autor
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
@@ -91,7 +101,7 @@
         try {
             await axios.delete(path, {
                 id: id
-            });
+            }, config);
         } catch (error) {
             console.error(error);
         }
