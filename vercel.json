@@ -5,14 +5,94 @@
             "dest": "/home.html"
         },
         {
-            "src": "/index",
+            "src": "/api/library/([^/]+)",
             "methods": [
                 "GET",
                 "POST",
-                "DELETE",
-                "PATCH"
+                "PATCH",
+                "DELETE"
             ],
-            "dest": "/api/index.js"
-        }
+            "dest": "/api/books.js"
+        },
+        {
+            "src": "/api/library/([^/]+)/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/books.js"
+        },
+        {
+            "src": "/api/library/([^/]+)/([^/]+)/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/books.js"
+        },
+        {
+            "src": "/api/students/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/students.js"
+        },
+        {
+            "src": "/api/students/([^/]+)/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/students.js"
+        },
+        {
+            "src": "/api/students/([^/]+)/([^/]+)/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/students.js"
+        },
+        {
+            "src": "/api/registers/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/registers.js"
+        },
+        {
+            "src": "/api/registers/([^/]+)/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/registers.js"
+        },
+        {
+            "src": "/api/registers/([^/]+)/([^/]+)/([^/]+)",
+            "methods": [
+                "GET",
+                "POST",
+                "PATCH",
+                "DELETE"
+            ],
+            "dest": "/api/registers.js"
+        }     
     ]
 }

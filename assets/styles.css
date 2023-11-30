@@ -105,7 +105,7 @@ body {
 }
 
 .lista-table th, .lista-table td {
-    border: 1px solid #3f3e3e; /* Adiciona uma borda de 1px sólida às células da tabela */
+    border: 0.5px solid rgb(148, 148, 148); /* Adiciona uma borda de 1px sólida às células da tabela */
     padding: 8px; /* Adiciona um espaço interno de 8px nas células */
     text-align: left; /* Alinha o texto à esquerda nas células */
 }
@@ -171,5 +171,3 @@ body {
     transition: 0.5s;
 
 }
-
-
