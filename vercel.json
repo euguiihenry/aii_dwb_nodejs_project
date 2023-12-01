@@ -1,5 +1,6 @@
 {
     "rewrites": [
+        { "source": "/", "destination": "/home.html"},
         { "source": "/api/library/([^/]+)", "destination": "/api/books.js" },
         { "source": "/api/library/([^/]+)/([^/]+)", "destination": "/api/books.js" },
         { "source": "/api/library/([^/]+)/([^/]+)/([^/]+)", "destination": "/api/books.js" },
